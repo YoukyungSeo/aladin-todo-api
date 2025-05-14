@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: todo-api
+
+  datasource:
+    url: jdbc:sqlite:aladin.db?journal_mode=WAL
+    driver-class-name: org.sqlite.JDBC
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    database-platform: com.aladin.todo_api.common.db.SQLDialect
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+jwt:
+  secret: R5af3IayenGsXFZt6vmA/3xWmP9b5ju+G6vhzX8yXpz1IM+c+qOgE4RP9XL0bEMUfhD7IDJMp5g7rXvmvAQx0g== #openssl rand -base64 64
+  token-validity-in-seconds: 1800 #30분
