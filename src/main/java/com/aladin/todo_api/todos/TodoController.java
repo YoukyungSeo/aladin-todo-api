@@ -68,8 +68,10 @@ public class TodoController {
      * 할일 검색
      * */
     @GetMapping("/search")
-    public ResponseEntity<?> SearchTodo(@RequestBody TodoSearchDto dto, Authentication authentication) {
-        Page<Todo> todos = todoService.SearchTodo(dto, authentication);
+    public ResponseEntity<?> searchTodo(@RequestParam(defaultValue = "ALL") String searchType,
+                                        @RequestParam String searchWord, Authentication authentication) {
+        TodoSearchDto dto = new TodoSearchDto(searchType, searchWord);
+        Page<Todo> todos = todoService.searchTodo(dto, authentication);
         return ResponseUtil.response("검색에 성공하였습니다.", todos);
     }
 }

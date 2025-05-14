@@ -159,8 +159,8 @@ public class TodoControllerTest {
         // When & Then
         mockMvc.perform(get("/todos/search")
                         .header("Authorization", "Bearer " + token)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(dto)))
+                        .param("searchType", dto.getSearchType())
+                        .param("searchWord", dto.getSearchWord()))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.message").value("검색에 성공하였습니다."))
                 .andExpect(jsonPath("$.data.content[1].title").value("제목1"))
@@ -180,8 +180,7 @@ public class TodoControllerTest {
         // When & Then
         mockMvc.perform(get("/todos/search")
                         .header("Authorization", "Bearer " + token)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(dto)))
+                        .param("searchWord", "검색어"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.message").value("검색에 성공하였습니다."));
     }

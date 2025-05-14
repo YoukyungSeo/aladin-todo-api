@@ -89,7 +89,7 @@ public class UserService {
     */
     @Transactional
     public User getUser(Authentication authentication) {
-        String userId = authentication.getPrincipal().toString();
+        String userId = (String) authentication.getPrincipal();
         return getUser(userId);
     }
 
@@ -98,7 +98,7 @@ public class UserService {
     */
     @Transactional
     public User modifyUser(ModifyDto dto, Authentication authentication) {
-        String userId = authentication.getPrincipal().toString();
+        String userId = (String) authentication.getPrincipal();
         User user = getUser(userId);
 
         // 비밀번호 확인
@@ -139,7 +139,7 @@ public class UserService {
 
     @Transactional
     public User deleteUser(String password, Authentication authentication) {
-        String userId = authentication.getPrincipal().toString();
+        String userId = (String) authentication.getPrincipal();
         User user = getUser(userId);
 
         // 사용자 탈퇴 전 비밀번호 확인

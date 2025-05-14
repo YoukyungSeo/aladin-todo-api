@@ -26,7 +26,7 @@ public class TodoService {
      * AccessToken 검증 후 userId 가져오기
      * */
     private String getUserId(Authentication authentication) {
-        return authentication.getPrincipal().toString();
+        return (String) authentication.getPrincipal();
     }
 
     /*
@@ -113,7 +113,7 @@ public class TodoService {
      * 할일 검색
      * */
     @Transactional
-    public Page<Todo> SearchTodo(TodoSearchDto dto, Authentication authentication) {
+    public Page<Todo> searchTodo(TodoSearchDto dto, Authentication authentication) {
         String userId = getUserId(authentication);
 
         Pageable pageable = PageRequest.of(0, 10);

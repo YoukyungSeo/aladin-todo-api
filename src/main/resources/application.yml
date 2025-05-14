@@ -8,7 +8,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
     database-platform: com.aladin.todo_api.common.db.SQLDialect
     show-sql: true
     properties:

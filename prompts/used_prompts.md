@@ -1,0 +1,18 @@
+# Used Prompts
+- fact, opinion 구분하여 답변할 것.
+- [PDF 첨부]를 분석하여 과제를 수행할 단계별 전략 작성해줘. #기술 스택: Java, Spring Boot, SQLite3, Maven
+- SQLite3를 초기화할 수 있는 schema.sql 예제 작성해줘. (User, Todo 테이블 기준)
+- application.yml 에서 SQLite 연결 설정 예시와, Hibernate ddl-auto 옵션 설명해줘
+- SQLite `lock` 원인과 해결 방법 단계별로 알려줘. 정확한 분석을 위해 필요한 정보가 있다면 요청해.
+- JWT 기반 회원가입과 Todo API를 설계할 때 필요한 필드를 표로 정리해줘. OAuth2를 활용한 SNS 로그인 구현 시 고려해야할 점 포함.
+- 검색 조건으로 title, description, all 을 선택할 수 있는 SearchType enum을 만들고, 잘못된 값이 들어왔을 때 ALL 로 디폴트 설정하는 구현 예시 보여줘.
+- Spring Security와 JWT(jjtw 라이브러리)를 이용해서 토큰을 반환하는 예시 코드 작성해줘.
+- ```코드``` 예외 처리를 명확하게 하는 방법 알려줘. -> @RestControllerAdvice로 ExceptionHandler 구성하는 예시 코드 보여줘
+- JWT 발급 및 검증 전체 흐름 다이어그램 작성 전략 단계별로 알려줘. 필요한 정보가 있다면 요청해. -> PlantUML 다이어그램 코드 작성
+- ```UML코드``` 분석 후 평가하여 피드백해줘. 
+- SpringBoot Test를 활용한 테스트코드 작성 전략 단계별로 알려줘.
+- 테스트 커버리지 80%를 넘기기 위해, [커버리지 문서]를 참고하여 테스트 케이스를 어떤 식으로 나눠서 작성할지 전략을 짜줘.
+- ```코드```를 분석하여 리팩토링 전략 알려줘. #조건: 변경 전 예시, 불필요한 중복 제거, 메서드명 통일, 가독성 좋은 코드 작성 예시 제공.
+- [PDF 첨부]를 분석하여 프로젝트 readme.md 작성 예시 보여줘. readme.md 커스텀화를 위해 필요한 정보가 있다면 요청해.
+- ```코드``` 반환 메세지 중복을 줄일 수 있을 것 같아. 공통으로 처리할 수 있도록 하는 전략 알려줘.
+- 테스트 커버리지 확인 방법 알려줘. # 사용 기술: IntelliJ, Spring Boot
