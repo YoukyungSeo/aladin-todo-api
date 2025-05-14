@@ -28,24 +28,40 @@
 
 ## ✅ 기능 목록
 ### 사용자 관련 API
-| 메서드 | 엔드포인트      | 설명               |
-|--------|-----------------|------------------|
-| POST   | /users/signup   | 회원가입          |
-| POST   | /users/login    | 로그인 (JWT 발급)  |
-| GET    | /users/me       | 사용자 정보 조회       |
-| PUT    | /users/me       | 사용자 정보 수정       |
-| DELETE | /users/me       | 회원 탈퇴          |
+| 기능명 | Method | URL | 요청 값 | 비고 |
+|---------|--------|-----|---------|-----|
+| **회원가입** | POST | `/users/signup` | userId, username, password, email, phoneNo | 인증 불필요 |
+| **로그인 (JWT 발급)** | POST | `/users/login` | userId, password | 인증 불필요, accessToken 반환 |
+| **내 정보 조회** | GET | `/users/me` | - | 인증 필요 (Authorization 헤더) |
+| **내 정보 수정** | PUT | `/users/me` | username, password, email, phoneNo | 인증 필요 |
+| **회원 탈퇴** | DELETE | `/users/me` | password | 인증 필요 |
 
-### TODO 관련 API
-| 메서드 | 엔드포인트           | 설명                   |
-|--------|----------------------|----------------------|
-| POST   | /todos                | 할일 등록              |
-| GET    | /todos                | 할일 목록 조회          |
-| GET    | /todos/{id}           | 특정 할일 조회          |
-| PUT    | /todos/{id}           | 특정 할일 수정          |
-| DELETE | /todos/{id}           | 특정 할일 삭제          |
-| GET    | /todos/search         | 할일 검색 (제목/내용)   |
+### 사용자 관련 API
+| 기능명 | Method | URL | 요청 값 | 비고 |
+|---------|--------|-----|---------|-----|
+| **할일 등록** | POST | `/todos` | title, description, status | 인증 필요 |
+| **할일 목록 조회** | GET | `/todos` | - | 인증 필요 |
+| **특정 할일 조회** | GET | `/todos/{id}` | - | 인증 필요, PathVariable: id |
+| **특정 할일 수정** | PUT | `/todos/{id}` | title, description, status | 인증 필요, PathVariable: id |
+| **특정 할일 삭제** | DELETE | `/todos/{id}` | - | 인증 필요, PathVariable: id |
+| **할일 검색** | GET | `/todos/search` | searchType, searchWord | 인증 필요, QueryParam |
 
+### 공통
+- 모든 API는 기본적으로 **JSON 형식** 요청/응답 사용.
+- 인증이 필요한 API는 반드시 **`Authorization: Bearer <accessToken>`** 헤더 포함.
+- `/users/signup`, `users/login` 제외.
+- 기본 응답 포맷 예시:
+    ```json
+    {
+      "status": 200,
+      "message": "성공 메시지",
+      "data": { ... }
+    }
+    ```
+- 예외 발생 시 응답 예시:
+  - **400 Bad Request** : 입력값 오류 (필수값 누락, 형식 오류 등)
+  - **401 Unauthorized** : JWT 누락, 만료, 잘못된 토큰
+  - **404 Not Found** : 존재하지 않는 값 요청
 ---
 
 ## ⚙️ 실행 방법
