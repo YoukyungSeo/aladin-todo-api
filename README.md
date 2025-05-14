@@ -103,6 +103,47 @@ mvn clean verify
 
 ---
 
+## ✨ JWT 인증 흐름 다이어그램
+
+### PlantUML 코드
+```
+@startuml
+actor Client
+participant "UserController" as Controller
+participant "UserService" as Service
+participant "TokenProvider" as TokenProvider
+participant "JwtAuthenticationFilter" as Filter
+participant "SecurityContext" as SecurityContext
+
+== 로그인 (Token 발급) ==
+Client -> Controller : 로그인 요청 (id/password)
+Controller -> Service : 인증 요청
+Service -> Service : 비밀번호 검증
+alt 비밀번호 검증 성공
+    Service -> TokenProvider : JWT 발급 요청
+    TokenProvider -> Service : AccessToken 반환
+    Service -> Controller : AccessToken 반환
+    Controller -> Client : AccessToken 전달
+else 비밀번호 검증 실패
+    Service -> Controller : 인증 실패 예외 발생 (401 Unauthorized)
+    Controller -> Client : 401 Unauthorized 응답
+end
+
+== 인증 (API 요청 시 Token 검증) ==
+Client -> Filter : API 요청 (Authorization: Bearer <token>)
+Filter -> TokenProvider : 토큰 검증 & 사용자 정보 조회
+alt 토큰 유효성 검증 성공
+    TokenProvider --> Filter : 사용자 정보 반환
+    Filter -> SecurityContext : 인증 객체 저장(Authentication)
+    Filter -> Controller : 요청 전달
+else 토큰 검증 실패
+    TokenProvider --> Filter : 검증 실패 예외 발생 (401 Unauthorized)
+    Filter -> Client : 401 Unauthorized 응답 반환
+end
+@enduml
+```
+[이미지로 확인하기](//www.plantuml.com/plantuml/png/bLDHQzDG57w_l-Am1qaUH0MVXXsh0y4z3RRXyoMvuCKiAJUtc_fKjSYaUr1Gw4exEb2PC25sAyQ_bDpy1s_J8ycfjRW-bEJmVUTyvpjVDcFDbMuV18nxEbAm5KWHQjQoHUd95WyrhEt7Gcr5eLPH40Yr1Zo6wlLlwAvGXz8J9GwVAMWlUYR27HKTIX_RaGe5Rn_fPbi_5Q4jSIsZy94CDDBcZnI_Axosalh5JA5uhb45gJ7MQ41-Fin-fcQKWbDEXpmPPkax5neDDZS1Rc_KzeJr6iKCFfh9Tt2aVwV5u_WeKhxBQbZBnCqjpHBCrn5o6DOf9F_LpPDEFZak-Ybaaux5CnxePNKmtH_PrPI1_LMzg8Esu_QJFTm81vS4Wg8IcfudulYF5VtYj4z642_-3QSUe8yKRSRTl7V9H12BvVlrFXSd5wk6ewE81DC_DgVfR5lpPWJE_RltO3_aDZEHaY-5xwuIjWYshJ_alIaJeL-c12SvpPt7wAETEfpxY89fOZ2JjdL5iNGSK0Pu7HuAhYpcWPwrsN0PSfQSiNWxBbubE0bkWNbzQGRVpDbxQ-Ed_EeQp7bI34xAi23M3CV5uCAcX0PcsVthSXSxrwzQwLluagfRPCd8JAujjsFElZZqYtLf4t9Bj8Ya0XUXULWj7y4tYGHo_oSEw4MPYatxrpu8VWC0)
+
 ## 🗂️ 폴더 구조
 ```
 aladin-todo-api/
